@@ -37,17 +37,18 @@ const styles = StyleSheet.create({
         margin: 15,
         height: 150,
         borderRadius: 10, // for android touchableNAtiveFeedback
-        overflow: 'hidden', // child items can't be outside the component
+        overflow: Platform.OS === 'android' && Platform.Version >=21 ? 'hidden' : 'visible', // child items can't be outside the component
+        elevation: 5,
+        
     },
     container: {
         flex: 1,
         borderRadius: 10,
+        // note: shadow effect only affect ios, for android elevation
         shadowColor: 'black',
         shadowOpacity: 0.26,
         shadowOffset: { width: 0, height: 2 },
         shadowRadius: 10,
-        elevation: 3,
-        // note: shadow effect only affect ios, for android elevation
         padding: 15,
         justifyContent: 'flex-end',
         alignItems: 'flex-end'

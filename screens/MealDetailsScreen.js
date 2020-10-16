@@ -1,7 +1,9 @@
 import React from 'react';
-import {View,Text,StyleSheet,Button} from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
 import { MEALS } from '../data/dummy-data';
+import HeaderButton from '../components/HeaderButton';
 
 const MealDetailScreen = props => {
 
@@ -12,7 +14,7 @@ const MealDetailScreen = props => {
     return (
         <View style={styles.screen}>
             <Text>{selectedMeal.title}</Text>
-            <Button title="Go Back to categories" onPress={()=> {
+            <Button title="Go Back to categories" onPress={() => {
                 props.navigation.popToTop();
             }} />
         </View>
@@ -24,7 +26,16 @@ MealDetailScreen.navigationOptions = (navigationData) => {
     const selectedMeal = MEALS.find(meal => meal.id === mealId);
 
     return {
-        headerTitle: selectedMeal.title
+        headerTitle: selectedMeal.title,
+        // set the favorite button into top bar of the page
+        headerRight: () => <HeaderButtons HeaderButtonComponent={HeaderButton}>
+            <Item
+                title="Favorite"
+                iconName='ios-star'
+                onPress={() => {
+                    console.log("Mark as Favourite!");
+                }} />
+        </HeaderButtons>
     }
 }
 
