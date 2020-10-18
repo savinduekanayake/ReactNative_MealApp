@@ -1,12 +1,12 @@
 import React from 'react';
-import { 
+import {
     View,
     Text,
     StyleSheet,
-    Button, 
-    FlatList, 
+    Button,
+    FlatList,
     TouchableOpacity,
-    } from 'react-native';
+} from 'react-native';
 
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../components/HeaderButton';
@@ -18,31 +18,38 @@ const CategoriesScreen = props => {
 
     const renderGridItem = (itemData) => {
         return (
-            <CategoryGridTile 
-                title={itemData.item.title} 
+            <CategoryGridTile
+                title={itemData.item.title}
                 color={itemData.item.color}
                 onSelect={() => {
-                    props.navigation.navigate({routeName: 'CategoryMeals', 
-                        params:{
+                    props.navigation.navigate({
+                        routeName: 'CategoryMeals',
+                        params: {
                             categoryId: itemData.item.id,
-                        } });
+                        }
+                    });
                 }} />
-            );
-        }
+        );
+    }
 
     return (
         // <Text>SK</Text>
-        <FlatList keyExtractor={(item,index) => item.id } data={CATEGORIES} renderItem={renderGridItem} numColumns={2} />
+        <FlatList keyExtractor={(item, index) => item.id} data={CATEGORIES} renderItem={renderGridItem} numColumns={2} />
     );
 }
 
 //  Statictly set the Screen title
-CategoriesScreen.navigationOptions = {
+CategoriesScreen.navigationOptions = (navData) => {
+    return{
     headerTitle: 'Meal Categories',
-    headerLeft: {
-
+    headerLeft: () => <HeaderButtons
+        HeaderButtonComponent={HeaderButton}>
+        <Item title="Menu" iconName='ios-menu' onPress={() => {
+            navData.navigation.toggleDrawer();
+        }} />
+    </HeaderButtons>
     }
-   
+
 };
 
 const styles = StyleSheet.create({
@@ -51,7 +58,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    
+
 });
 
 export default CategoriesScreen;
