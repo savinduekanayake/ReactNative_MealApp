@@ -8,6 +8,9 @@ import {
     TouchableOpacity,
     } from 'react-native';
 
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import HeaderButton from '../components/HeaderButton';
+
 import { CATEGORIES } from '../data/dummy-data';
 import CategoryGridTile from '../components/CategoryGridTile';
 
@@ -36,6 +39,9 @@ const CategoriesScreen = props => {
 //  Statictly set the Screen title
 CategoriesScreen.navigationOptions = {
     headerTitle: 'Meal Categories',
+    headerLeft: {
+
+    }
    
 };
 
