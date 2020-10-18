@@ -117,7 +117,7 @@ const MealsFavTabNavigator =
                 activeTintColor: Colors.accentColor,
                 // for ios TabBar text style
                 labelStyle: {
-                    fonstFamily: 'open-sans'
+                    fontFamily: 'open-sans'
                 }
             }
         });
