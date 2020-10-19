@@ -1,7 +1,3 @@
-
-
-
-
 // import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
 // import { StyleSheet, Text, View } from 'react-native';
@@ -12,7 +8,23 @@ import { AppLoading } from 'expo';
 
 import MealsNavigator from './navigation/MealsNavigator';
 
+// redux
+import {createStore, combineReducers} from 'redux';
+import {Provider} from 'react-redux';
+import mealsReducer from './store/reducers/meals';
+
+// speed up navigations
 enableScreens();
+
+// combine all reducers
+const rootReducer = combineReducers({
+  // all reducers
+  meals: mealsReducer,
+})
+
+// create a reducer
+const store = createStore(rootReducer);
+
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -20,8 +32,6 @@ const fetchFonts = () => {
     'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf')
   })
 }
-
-
 
 export default function App() {
 
@@ -35,7 +45,9 @@ export default function App() {
   }
 
 
-  return <MealsNavigator />
+  return <Provider store={store} >
+          <MealsNavigator /> 
+          </Provider>
 }
 
 // import React from 'react';
