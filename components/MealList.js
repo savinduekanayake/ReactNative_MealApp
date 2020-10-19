@@ -18,7 +18,9 @@ const MealList = props => {
                         {
                             routeName: 'MealDetail', 
                             params:{
-                                mealId: itemData.item.id
+                                mealId: itemData.item.id,
+                                // ---------optimal way to pass title----------
+                                mealTitle: itemData.item.title
                             }
                         })
                 }}
