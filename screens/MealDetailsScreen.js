@@ -25,7 +25,8 @@ const MealDetailScreen = props => {
     const  dispatch = useDispatch();
 
     const mealId = props.navigation.getParam('mealId');
-    const availableMeals = useSelector(state => state.meals.meals)
+    const availableMeals = useSelector(state => state.meals.meals);
+    const currentMealIsFavorite = useSelector(state => state.meals.favoriteMeals.some(meal => meal.id === mealId));
     const selectedMeal = availableMeals.find(meal => meal.id === mealId);
 
     const toggleFavoriteHandler = useCallback( () => {
@@ -35,7 +36,11 @@ const MealDetailScreen = props => {
     // Dispatch only done by main component-> using useEffect to pass the function
     useEffect(() => {
         props.navigation.setParams({toggleFav:toggleFavoriteHandler})
-    },[toggleFavoriteHandler])
+    },[toggleFavoriteHandler]);
+
+    useEffect(() => {
+        props.navigation.setParams({isFav : currentMealIsFavorite })
+    },[currentMealIsFavorite]);
 
     // --------This is not the optimal solution------------
     // to avoid infinite loop
@@ -71,6 +76,8 @@ MealDetailScreen.navigationOptions = (navigationData) => {
     // const selectedMeal = MEALS.find(meal => meal.id === mealId);
     const mealTitle = navigationData.navigation.getParam('mealTitle');
     const toggleFavorite = navigationData.navigation.getParam('toggleFav')
+
+    const isFavorite = navigationData.navigation.getParam('isFav');
     
     return {
         headerTitle: mealTitle,
@@ -78,7 +85,7 @@ MealDetailScreen.navigationOptions = (navigationData) => {
         headerRight: () => <HeaderButtons HeaderButtonComponent={HeaderButton}>
             <Item
                 title="Favorite"
-                iconName='ios-star'
+                iconName={isFavorite? 'ios-star' : 'ios-star-outline'}
                 onPress={toggleFavorite} />
         </HeaderButtons>
     }
